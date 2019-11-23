@@ -1,0 +1,62 @@
+{
+  "name": "@hobroker/altum",
+  "version": "0.1.0",
+  "description": "CD on dockers",
+  "main": "src/index.js",
+  "repository": "https://github.com/hobroker/altum",
+  "author": "Igor Leahu <igor.leahu@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node -r @babel/register src/index.js",
+    "dev:watch": "nodemon --inspect=8100 src/index.js",
+    "build": "babel src -d build && chmod +x build/index.js",
+    "lint": "eslint src --ext .js --max-warnings 0"
+  },
+  "bin": {
+    "altum": ".bin/altum.js"
+  },
+  "dependencies": {
+    "consola": "^2.11.0",
+    "execa": "^3.3.0",
+    "yargs": "^15.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/register": "^7.6.2",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "i": "^0.3.6",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.4.2",
+    "nodemon": "^2.0.1",
+    "prettier": "1.19.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "(src|tests)/**/*.js": [
+      "eslint --max-warnings 0"
+    ]
+  },
+  "jest": {
+    "coverageDirectory": "./coverage/",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "modulePathIgnorePatterns": [
+      "/build"
+    ],
+    "testEnvironment": "node"
+  }
+}
