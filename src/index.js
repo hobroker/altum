@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import yargs from 'yargs';
-import { CMD_NAME, REPOSITORY } from './constants';
+import { APP_NAME, REPOSITORY } from './constants';
 import { requireDocker } from './middlewares';
 import { handleYargsError } from './util/error';
 
@@ -13,7 +13,7 @@ import Remove from './commands/remove';
 import Restart from './commands/restart';
 
 yargs
-  .scriptName(CMD_NAME)
+  .scriptName(APP_NAME)
   .middleware(requireDocker)
 
   .command(List)

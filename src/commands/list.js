@@ -1,6 +1,7 @@
 import consola from 'consola';
 import exec from '../util/exec';
 import { parseJsonOutput } from '../util/json';
+import { APP_NAME } from '../constants';
 
 /**
  * @param {String} [filter]
@@ -18,7 +19,7 @@ export const findContainers = async ({ filter = '' }) => {
   }
 
   const filterFn = ({ ID, Image, Names, Labels }) =>
-    Labels.startsWith('"ghcd=') &&
+    Labels.startsWith(`"${APP_NAME}=`) &&
     [Names, Labels, ID, Image].some(item => item.includes(filter));
 
   return result.filter(filterFn);

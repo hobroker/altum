@@ -1,12 +1,12 @@
 import consola from 'consola';
-import { CMD_NAME } from '../constants';
+import { APP_NAME } from '../constants';
 import exec from '../util/exec';
 import remove from './remove';
 import stop from './stop';
 
 const createMeta = ({ project, env, commit }) => ({
   name: `${project}_${env}`,
-  label: `${CMD_NAME}=${commit}`,
+  label: `${APP_NAME}=${commit}`,
 });
 
 const createArgs = ({ publish }, { name, label }) => {
