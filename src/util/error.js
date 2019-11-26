@@ -4,7 +4,7 @@ export const handleError = (error, exitCode = 1) => {
   const errors = [].concat(error);
 
   consola.fatal(...errors);
-  if (exitCode === true) {
+  if (exitCode !== false) {
     process.exit(exitCode);
   }
 };

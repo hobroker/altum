@@ -2,23 +2,26 @@
 
 import yargs from 'yargs';
 import { APP_NAME, REPOSITORY } from './constants';
-import { requireDocker } from './middlewares';
+import { initOctokit, requireDocker } from './middlewares';
 import { handleYargsError } from './util/error';
 
+import Deploy from './commands/deploy';
 import List from './commands/list';
-import Stop from './commands/stop';
 import Ping from './commands/ping';
-import Start from './commands/start';
 import Remove from './commands/remove';
 import Restart from './commands/restart';
+import Start from './commands/start';
+import Stop from './commands/stop';
 
 yargs
   .scriptName(APP_NAME)
   .middleware(requireDocker)
+  .middleware(initOctokit)
 
   .command(List)
-  .command(Stop)
   .command(Start)
+  .command(Deploy)
+  .command(Stop)
   .command(Restart)
   .command(Remove)
   .command(Ping)
