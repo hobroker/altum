@@ -1,6 +1,39 @@
 import consola from 'consola';
 import github from '../util/github';
-import { APP_NAME } from '../constants';
+import { APP_NAME, DEPLOYMENT_STATUSES } from '../constants';
+
+const deploy = async ({ owner, repo, ref }, state = null) => {
+  const result = [];
+  const base = { owner, repo };
+
+  const { data: deployment } = await github.repos.createDeployment({
+    ...base,
+    ref,
+    environment: `${ref}123`,
+    auto_merge: false,
+    log_url: 'https://google.com',
+    environment_url: 'https://twitter.com',
+    description: `Deploy request from ${APP_NAME}`,
+    headers: {
+      accept: 'application/vnd.github.ant-man-preview+json',
+    },
+  });
+  result.push(deployment);
+
+  if (state) {
+    const statusRequest = await github.repos.createDeploymentStatus({
+      ...base,
+      state,
+      deployment_id: deployment.id,
+      headers: {
+        accept: 'application/vnd.github.flash-preview+json',
+      },
+    });
+    result.push(statusRequest);
+  }
+
+  return result;
+};
 
 const builder = parent =>
   parent
@@ -10,20 +43,10 @@ const builder = parent =>
     .option('owner', { string: true })
     .demandOption(['token', 'ref', 'repo', 'owner']);
 
-const handler = async ({ ref, owner, repo }) => {
-  const data = {
-    ref,
-    owner,
-    repo,
-    environment: ref,
-    auto_merge: false,
-    environment_url: 'https://twitter.com',
-    description: `Deploy request from ${APP_NAME}`,
-  };
+const handler = async options => {
+  const result = await deploy(options, DEPLOYMENT_STATUSES.SUCCESS);
 
-  const deployment = await github.repos.createDeployment(data);
-
-  consola.success('deployment', deployment);
+  consola.success('deployment', result);
 };
 
 const Deploy = {
