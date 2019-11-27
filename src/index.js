@@ -27,6 +27,7 @@ yargs
 
   .demandCommand(1, 'I need a command to work')
 
+  .help()
   .fail(handleYargsError)
   .epilogue(`For more info, visit ${REPOSITORY}`)
   .parse();

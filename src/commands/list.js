@@ -47,7 +47,7 @@ const handler = async ({ filter }) => {
 };
 
 const List = {
-  command: 'List',
+  command: 'list',
   aliases: ['ls'],
   desc: 'Lists the managed apps',
   builder,

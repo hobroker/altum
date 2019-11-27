@@ -1,13 +1,8 @@
 import Octokit from '@octokit/rest';
-import yargs from 'yargs';
+import parser from 'yargs-parser';
 import { APP_NAME } from '../constants';
 
-const { token } = yargs.options({
-  token: {
-    desc: 'The Github personal token',
-    string: true,
-  },
-}).argv;
+const { token } = parser(process.argv);
 
 const octokit = new Octokit({
   auth: token,
