@@ -1,52 +1,35 @@
 import consola from 'consola';
-import github from '../util/github';
-import { APP_NAME, DEPLOYMENT_STATUSES } from '../constants';
-
-const deploy = async ({ owner, repo, ref }, state = null) => {
-  const result = [];
-  const base = { owner, repo };
-
-  const { data: deployment } = await github.repos.createDeployment({
-    ...base,
-    ref,
-    environment: `${ref}123`,
-    auto_merge: false,
-    log_url: 'https://google.com',
-    environment_url: 'https://twitter.com',
-    description: `Deploy request from ${APP_NAME}`,
-    headers: {
-      accept: 'application/vnd.github.ant-man-preview+json',
-    },
-  });
-  result.push(deployment);
-
-  if (state) {
-    const statusRequest = await github.repos.createDeploymentStatus({
-      ...base,
-      state,
-      deployment_id: deployment.id,
-      headers: {
-        accept: 'application/vnd.github.flash-preview+json',
-      },
-    });
-    result.push(statusRequest);
-  }
-
-  return result;
-};
+import { DEPLOYMENT_STATUSES } from '../constants';
+import { createDeployment, createDeploymentStatus } from '../util/octokit';
 
 const builder = parent =>
-  parent
-    .option('token', { string: true })
-    .option('ref', { string: true })
-    .option('repo', { string: true })
-    .option('owner', { string: true })
-    .demandOption(['token', 'ref', 'repo', 'owner']);
+  parent.options({
+    token: { demandOption: true },
+    ref: { demandOption: true },
+    repo: { demandOption: true },
+    owner: { demandOption: true },
+  });
 
-const handler = async options => {
-  const result = await deploy(options, DEPLOYMENT_STATUSES.SUCCESS);
+const handler = async ({ owner, repo, ref }) => {
+  const { id: deploymentId } = await createDeployment({
+    owner,
+    repo,
+    ref,
+  });
 
-  consola.success('deployment', result);
+  consola.info(`deployment ${deploymentId} was created`);
+
+  await createDeploymentStatus({
+    owner,
+    repo,
+    deploymentId,
+    state: DEPLOYMENT_STATUSES.IN_PROGRESS,
+    url: 'https://google.com',
+  });
+
+  consola.info('deployment status was created');
+
+  consola.success('deployed');
 };
 
 const Deploy = {

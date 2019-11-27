@@ -1,6 +1,6 @@
 import consola from 'consola';
 
-export const handleError = (error, exitCode = 1) => {
+const handleError = (error, exitCode = 1) => {
   const errors = [].concat(error);
 
   consola.fatal(...errors);

@@ -2,10 +2,10 @@ import consola from 'consola';
 import exec from '../util/exec';
 
 const builder = parent =>
-  parent.option('id', {
-    desc: 'container ID',
-    demandCommand: true,
-    string: true,
+  parent.options({
+    id: {
+      demandCommand: true,
+    },
   });
 
 /**

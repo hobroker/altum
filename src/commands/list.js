@@ -26,10 +26,10 @@ export const findContainers = async ({ filter = '' }) => {
 };
 
 const builder = parent =>
-  parent.option('filter', {
-    desc: 'something to search for',
-    string: true,
-    default: '',
+  parent.options({
+    filter: {
+      default: '',
+    },
   });
 
 /**
