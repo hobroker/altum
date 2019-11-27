@@ -2,7 +2,7 @@
 
 import yargs from 'yargs';
 import { APP_NAME, REPOSITORY } from './constants';
-import { initOctokit, requireDocker } from './middlewares';
+import { requireDocker } from './middlewares';
 import { handleYargsError } from './util/error';
 
 import Deploy from './commands/deploy';
@@ -16,7 +16,6 @@ import Stop from './commands/stop';
 yargs
   .scriptName(APP_NAME)
   .middleware(requireDocker)
-  .middleware(initOctokit)
 
   .command(List)
   .command(Start)

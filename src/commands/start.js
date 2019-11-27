@@ -44,25 +44,13 @@ const tryToHandleStartError = async (stderr, { name }) => {
 };
 
 const builder = parent =>
-  parent
-    .option('image', {
-      string: true,
-    })
-    .option('project', {
-      string: true,
-    })
-    .option('commit', {
-      string: true,
-    })
-    .option('env', {
-      default: 'development',
-      string: true,
-    })
-    .option('publish', {
-      alias: 'p',
-      string: true,
-    })
-    .demandOption(['image', 'project', 'commit']);
+  parent.options({
+    image: { demandOption: true },
+    project: { demandOption: true },
+    commit: { demandOption: true },
+    env: { default: 'development' },
+    publish: { alias: 'p' },
+  });
 
 const handler = async options => {
   const { image } = options;

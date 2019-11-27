@@ -1,29 +1,35 @@
 import consola from 'consola';
-import github from '../util/github';
-import { APP_NAME } from '../constants';
+import { DEPLOYMENT_STATUSES } from '../constants';
+import { createDeployment, createDeploymentStatus } from '../util/octokit';
 
 const builder = parent =>
-  parent
-    .option('token', { string: true })
-    .option('ref', { string: true })
-    .option('repo', { string: true })
-    .option('owner', { string: true })
-    .demandOption(['token', 'ref', 'repo', 'owner']);
+  parent.options({
+    token: { demandOption: true },
+    ref: { demandOption: true },
+    repo: { demandOption: true },
+    owner: { demandOption: true },
+  });
 
-const handler = async ({ ref, owner, repo }) => {
-  const data = {
-    ref,
+const handler = async ({ owner, repo, ref }) => {
+  const { id: deploymentId } = await createDeployment({
     owner,
     repo,
-    environment: ref,
-    auto_merge: false,
-    environment_url: 'https://twitter.com',
-    description: `Deploy request from ${APP_NAME}`,
-  };
+    ref,
+  });
 
-  const deployment = await github.repos.createDeployment(data);
+  consola.info(`deployment ${deploymentId} was created`);
 
-  consola.success('deployment', deployment);
+  await createDeploymentStatus({
+    owner,
+    repo,
+    deploymentId,
+    state: DEPLOYMENT_STATUSES.IN_PROGRESS,
+    url: 'https://google.com',
+  });
+
+  consola.info('deployment status was created');
+
+  consola.success('deployed');
 };
 
 const Deploy = {
