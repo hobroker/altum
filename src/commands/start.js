@@ -4,19 +4,13 @@ import exec from '../util/exec';
 import remove from './remove';
 import stop from './stop';
 
-const createMeta = ({ project, env, commit }) => ({
-  name: `${project}_${env}`,
-  label: `${APP_NAME}=${commit}`,
-});
+const createMeta = ({ image, commit }) => {
+  const [project, version] = image.replace(/(.*)\//, '').split(':');
 
-const createArgs = ({ publish }, { name, label }) => {
-  const args = ['-d', '--rm', `--name`, name, '--label', label];
-
-  if (publish) {
-    args.push('--publish', publish);
-  }
-
-  return args;
+  return {
+    name: `${project}_${version}`,
+    label: `${APP_NAME}=${commit}`,
+  };
 };
 
 const stopAndTryToRemoveContainer = async id => {
@@ -43,13 +37,25 @@ const tryToHandleStartError = async (stderr, { name }) => {
   }
 };
 
+const createArgs = (options, { name, label }) => {
+  const args = ['-d', '--rm', `--name`, name, '--label', label];
+  const optional = ['publish'];
+
+  optional.forEach(key => {
+    const value = options[key];
+    if (typeof value !== 'undefined') {
+      args.push(`--${key}`, value);
+    }
+  });
+
+  return args;
+};
+
 const builder = parent =>
   parent.options({
-    image: { demandOption: true },
-    project: { demandOption: true },
     commit: { demandOption: true },
-    env: { default: 'development' },
-    publish: { alias: 'p' },
+    image: { demandOption: true },
+    publish: {},
   });
 
 const handler = async options => {
@@ -77,7 +83,7 @@ const handler = async options => {
 };
 
 const Start = {
-  command: 'start',
+  command: 'start <image> <commit>',
   aliases: ['up'],
   desc: 'Starts an app',
   builder,
