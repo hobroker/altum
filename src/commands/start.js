@@ -70,8 +70,6 @@ const handler = async options => {
 
   const meta = createMeta(options);
   const args = createArgs(options, meta);
-  consola.info(options.buildArgs, args);
-  return;
 
   const _start = () => exec('docker', ['run', ...args, image]);
 
