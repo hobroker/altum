@@ -2,7 +2,7 @@ import consola from 'consola';
 import getPort from 'get-port';
 
 const handler = async () => {
-  const range = [8080, 8099];
+  const range = [8081, 8099];
   const port = await getPort({
     port: getPort.makeRange(...range),
   });
