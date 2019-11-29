@@ -1,5 +1,6 @@
 import consola from 'consola';
 import execa from 'execa';
+import { isSilent } from './silent';
 
 /**
  * @param {String} command
@@ -16,13 +17,13 @@ const exec = async (
 ) => {
   const argsString = args.join` `;
 
-  if (logCommand) {
+  if (!isSilent() && logCommand) {
     consola.info('$', command, argsString);
   }
 
   const result = await execa(command, args);
 
-  if (logOutput) {
+  if (!isSilent() && logOutput) {
     consola.info('>', result.stdout || result.stderr);
   }
 
