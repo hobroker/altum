@@ -39,12 +39,18 @@ const tryToHandleStartError = async (stderr, { name }) => {
 
 const createArgs = (options, { name, label }) => {
   const args = ['-d', '--rm', `--name`, name, '--label', label];
-  const optional = ['publish'];
+  const optional = ['publish', 'build-args'];
 
   optional.forEach(key => {
     const value = options[key];
     if (typeof value !== 'undefined') {
-      args.push(`--${key}`, value);
+      if (Array.isArray(value)) {
+        value.forEach(item => {
+          args.push(`--${key}`, item);
+        });
+      } else {
+        args.push(`--${key}`, value);
+      }
     }
   });
 
@@ -56,6 +62,7 @@ const builder = parent =>
     commit: { demandOption: true },
     image: { demandOption: true },
     publish: {},
+    buildArgs: { alias: 'build-args', array: true },
   });
 
 const handler = async options => {
@@ -63,6 +70,8 @@ const handler = async options => {
 
   const meta = createMeta(options);
   const args = createArgs(options, meta);
+  consola.info(options.buildArgs, args);
+  return;
 
   const _start = () => exec('docker', ['run', ...args, image]);
 
