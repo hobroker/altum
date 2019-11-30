@@ -24,6 +24,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install packages
         run: npm ci
+      - name: Run Build
+        run: npm run build
       - name: Prepare release
         run: |
           mkdir -p release
