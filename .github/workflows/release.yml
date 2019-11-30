@@ -26,7 +26,7 @@ jobs:
           mkdir -p release
           cp -r {.bin,build,package*.json} release
           cp -r {update.sh,LICENSE,README.md} release
-          zip release.zip release
+          zip -r release.zip release
       - name: Upload artifact
         uses: actions/upload-artifact@v1
         with:
