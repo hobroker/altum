@@ -24,14 +24,12 @@ jobs:
       - name: Prepare release
         run: |
           mkdir -p release
-          cp -r {.bin,build,package*.json} release
-          cp -r {update.sh,LICENSE,README.md} release
-          zip -r release.zip release
+          zip -r release.zip .bin build package*.json update.sh LICENSE README.md
       - name: Upload artifact
         uses: actions/upload-artifact@v1
         with:
           name: release
-          path: release
+          path: release.zip
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
