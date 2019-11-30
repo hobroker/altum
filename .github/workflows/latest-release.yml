@@ -1,0 +1,35 @@
+name: Latest release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        node-version: [12]
+        platform: [ubuntu-latest]
+
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - uses: actions/checkout@v1.1.0
+        with:
+          fetch-depth: 1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1.2.0
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install packages
+        run: npm ci
+      - name: Prepare release
+        run: |
+          mkdir -p release
+          zip -r release.zip .bin build package*.json update.sh LICENSE README.md
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: release
+          path: release.zip
