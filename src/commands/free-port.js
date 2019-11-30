@@ -1,4 +1,3 @@
-import consola from 'consola';
 import getPort from 'get-port';
 
 const handler = async () => {
@@ -7,7 +6,7 @@ const handler = async () => {
     port: getPort.makeRange(...range),
   });
 
-  consola.log(port);
+  console.log(port);
 };
 
 const FreePort = {
