@@ -1,11 +1,12 @@
 import getPort from 'get-port';
 
 const handler = async () => {
-  const range = [8081, 8099];
+  const range = [3000, 5000];
   const port = await getPort({
     port: getPort.makeRange(...range),
   });
 
+  // eslint-disable-next-line no-console
   console.log(port);
 };
 
