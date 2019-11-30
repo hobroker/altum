@@ -33,3 +33,15 @@ jobs:
         with:
           name: release
           path: release.zip
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v0.1.1
+          release_name: test
+          draft: true
+          prerelease: true
+      - name: Install packages
+        run: echo ${{ steps.create_release.outputs.upload_url }}
