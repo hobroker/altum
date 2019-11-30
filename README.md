@@ -8,14 +8,16 @@
 altum <command>
 
 Commands:
-  altum list     list the managed apps           [aliases: ls]
-  altum stop     stop an app                   [aliases: down]
-  altum start    start an app                    [aliases: up]
-  altum restart  restart an app                  [aliases: rs]
-  altum remove   removes an app                  [aliases: rm]
-  altum ping     pong
+  altum list                    Lists the managed apps             [aliases: ls]
+  altum start <image> <commit>  Starts an app                      [aliases: up]
+  altum stop                    Stops an app                     [aliases: down]
+  altum restart                 Restarts an app                    [aliases: rs]
+  altum remove                  Removes an app                     [aliases: rm]
+  altum deploy                  Informs Github about the app deployment
+  altum util                    A set of utils/helpers
+  altum ping                    Pings the app
 
 Options:
-  --help     Show help                               [boolean]
-  --version  Show version number                     [boolean]
+  --version  Show version number                                       [boolean]
+  --help     Show help                                                 [boolean]
 ```

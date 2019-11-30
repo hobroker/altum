@@ -1,6 +1,9 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    branches-ignore:
+      - master
 
 jobs:
   build:
@@ -23,11 +26,3 @@ jobs:
         run: npm ci
       - name: Run Build
         run: npm run build
-      - name: Upload Build
-        uses: actions/upload-artifact@v1
-        with:
-          name: build
-          path: build
-        env:
-          CI: true
-          NODE_ENV: test
