@@ -1,5 +1,5 @@
 {
-  "name": "@hobroker/altum",
+  "name": "altum",
   "version": "0.1.0",
   "description": "CD on dockers",
   "main": "src/index.js",
