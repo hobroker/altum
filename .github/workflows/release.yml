@@ -25,7 +25,8 @@ jobs:
       - name: Prepare release
         run: |
           mkdir -p release
-          cp -r {.bin,build,LICENSE,README.md,package*.json} release
+          cp -r {.bin,build,package*.json} release
+          cp -r {update.sh,LICENSE,README.md} release
       - name: Upload release as artifact
         uses: actions/upload-artifact@v1
         with:
