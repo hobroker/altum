@@ -20,7 +20,7 @@ const handler = async ({ id }) => {
 };
 
 const Restart = {
-  command: 'restart',
+  command: 'restart <id>',
   aliases: ['rs'],
   desc: 'Restarts an app',
   builder,

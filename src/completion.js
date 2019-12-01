@@ -1,29 +1,30 @@
 import yargs from 'yargs';
+import { completion as util } from './commands/util';
 
-let mainCommands;
+const subcommandsCompletionMap = { util };
 
-const setMainCommands = () => {
-  mainCommands = yargs
+const extractCommands = parent =>
+  parent
     .getUsageInstance()
     .getCommands()
     .flatMap(([cmd, , , aliases]) => [cmd, ...aliases])
     .map(item => item.replace(/ (.*)/, ''));
-};
 
-const getMainCommands = () => {
-  if (!mainCommands) {
-    setMainCommands();
+const getCompletion = (cmd, sub) => {
+  if (!sub) {
+    return extractCommands(yargs);
   }
-  return mainCommands;
+
+  return subcommandsCompletionMap[cmd] || [];
 };
 
-const completion = async (current, { _: [, cmd] }) => {
+const completion = async (current, { _: [, cmd, sub] }) => {
   try {
-    const { completion: result = [] } = await import(`./commands/${cmd}`);
+    const result = getCompletion(cmd, sub);
 
     return result;
-  } catch (e) {
-    return getMainCommands();
+  } catch (error) {
+    return [];
   }
 };
 

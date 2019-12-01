@@ -20,7 +20,7 @@ const handler = async ({ id }) => {
 };
 
 const Stop = {
-  command: 'stop',
+  command: 'stop <id>',
   aliases: ['down'],
   desc: 'Stops an app',
   builder,

@@ -20,7 +20,7 @@ const handler = async ({ id }) => {
 };
 
 const Remove = {
-  command: 'remove',
+  command: 'remove <id>',
   aliases: ['rm'],
   desc: 'Removes an app',
   builder,
