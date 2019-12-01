@@ -6,7 +6,8 @@ const Util = {
   command: 'util',
   desc: 'A set of utils/helpers',
   builder,
-  handler: undefined,
 };
+
+export const completion = ['free-port'];
 
 export default Util;

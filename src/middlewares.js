@@ -1,10 +1,8 @@
-import parser from 'yargs-parser';
 import exec from './util/exec';
 import { setSilent } from './util/silent';
 
-export const requireDocker = () => exec('docker', ['-v'], true);
+export const requireDocker = () => exec('docker', ['-v'], false, false);
 
-export const silentCondition = () => {
-  const { silent } = parser(process.argv);
+export const silentOption = ({ silent }) => {
   setSilent(silent);
 };

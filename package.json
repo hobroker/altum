@@ -21,6 +21,7 @@
     "@octokit/rest": "^16.35.0",
     "consola": "^2.11.0",
     "execa": "^3.4.0",
+    "find-up": "^4.1.0",
     "get-port": "^5.0.0",
     "yargs": "^15.0.2",
     "yargs-parser": "^16.1.0"
