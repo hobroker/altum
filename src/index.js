@@ -3,7 +3,9 @@
 import yargs from 'yargs';
 import { handleYargsError } from './util/error';
 import { APP_NAME, REPOSITORY } from './constants';
-import { requireDocker, silentCondition } from './middlewares';
+import completion from './completion';
+import { requireDocker, silentOption } from './middlewares';
+import readConfig from './util/config';
 
 import Deploy from './commands/deploy';
 import Util from './commands/util';
@@ -16,7 +18,18 @@ import Stop from './commands/stop';
 
 yargs
   .scriptName(APP_NAME)
-  .middleware(silentCondition)
+  .config(
+    readConfig({
+      emoji: false,
+    }),
+  )
+  .option('silent', {
+    boolean: true,
+    default: false,
+    desc: 'Do not print shell executions',
+    group: 'Options:',
+  })
+  .middleware(silentOption)
   .middleware(requireDocker)
 
   .command(List)
@@ -27,6 +40,7 @@ yargs
   .command(Deploy)
   .command(Util)
   .command(Ping)
+  .completion('completion', 'Generate completion script', completion)
 
   .demandCommand(1, 'I need a command to work')
 

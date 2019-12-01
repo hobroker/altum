@@ -13,7 +13,6 @@ const handler = async () => {
 const FreePort = {
   command: 'free-port',
   desc: 'Finds a free TCP port',
-  builder: undefined,
   handler,
 };
 
