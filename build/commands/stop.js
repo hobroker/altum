@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _consola = _interopRequireDefault(require("consola"));
+var _zoya = _interopRequireDefault(require("zoya"));
 
 var _exec = _interopRequireDefault(require("../util/exec"));
 
@@ -24,11 +24,11 @@ const builder = parent => parent.options({
 const handler = async ({
   id
 }) => {
-  _consola.default.info(`stopping container ${id}`);
+  _zoya.default.info(`stopping container ${id}`);
 
   await (0, _exec.default)('docker', ['stop', id]);
 
-  _consola.default.success(`container ${id} was stopped`);
+  _zoya.default.info(`container ${id} was stopped`);
 };
 
 const Stop = {

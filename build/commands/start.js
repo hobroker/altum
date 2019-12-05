@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _consola = _interopRequireDefault(require("consola"));
+var _zoya = _interopRequireDefault(require("zoya"));
 
 var _constants = require("../constants");
 
@@ -38,7 +38,7 @@ const stopAndTryToRemoveContainer = async id => {
       id
     });
   } catch (error) {
-    _consola.default.warn(error.stderr);
+    _zoya.default.warn(error.stderr);
   }
 };
 
@@ -110,7 +110,7 @@ const handler = async options => {
     } = error;
 
     if (stderr) {
-      _consola.default.warn(stderr);
+      _zoya.default.warn(stderr);
 
       await tryToHandleStartError(stderr, meta);
       await _start();
@@ -119,7 +119,7 @@ const handler = async options => {
     }
   }
 
-  _consola.default.success('started');
+  _zoya.default.info('started');
 };
 
 const Start = {

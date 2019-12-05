@@ -5,14 +5,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.handleYargsError = void 0;
 
-var _consola = _interopRequireDefault(require("consola"));
+var _zoya = _interopRequireDefault(require("zoya"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const handleError = (error, exitCode = 1) => {
   const errors = [].concat(error);
 
-  _consola.default.fatal(...errors);
+  _zoya.default.fatal(...errors);
 
   if (exitCode !== false) {
     process.exit(exitCode);

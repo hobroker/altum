@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = exports.findContainers = void 0;
 
-var _consola = _interopRequireDefault(require("consola"));
+var _zoya = _interopRequireDefault(require("zoya"));
 
 var _exec = _interopRequireDefault(require("../util/exec"));
 
@@ -53,16 +53,16 @@ const handler = async ({
   filter
 }) => {
   if (filter) {
-    _consola.default.info('filter=%s', filter);
+    _zoya.default.info('filter=%s', filter);
   }
 
   const containers = await findContainers({
     filter
   });
 
-  _consola.default.success(`found ${containers.length} container(s)`);
+  _zoya.default.info(`found ${containers.length} container(s)`);
 
-  _consola.default.success(containers);
+  _zoya.default.info(containers);
 };
 
 const List = {

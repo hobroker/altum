@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _consola = _interopRequireDefault(require("consola"));
+var _zoya = _interopRequireDefault(require("zoya"));
 
 var _execa = _interopRequireDefault(require("execa"));
 
@@ -24,13 +24,13 @@ const exec = async (command, args = [], logOutput = false, logCommand = true) =>
   const argsString = args.join` `;
 
   if (!(0, _silent.isSilent)() && logCommand) {
-    _consola.default.info('$', command, argsString);
+    _zoya.default.info('$', command, argsString);
   }
 
   const result = await (0, _execa.default)(command, args);
 
   if (!(0, _silent.isSilent)() && logOutput) {
-    _consola.default.info('>', result.stdout || result.stderr);
+    _zoya.default.info('>', result.stdout || result.stderr);
   }
 
   return result.stdout;

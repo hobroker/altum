@@ -5,17 +5,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _consola = _interopRequireDefault(require("consola"));
+var _zoya = _interopRequireDefault(require("zoya"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const handler = async ({
   emoji
 }) => {
-  _consola.default.success('pong');
+  _zoya.default.info('pong');
 
   if (emoji) {
-    _consola.default.log('🍿');
+    _zoya.default.log('🍿');
   }
 };
 

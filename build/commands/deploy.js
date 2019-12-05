@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _consola = _interopRequireDefault(require("consola"));
+var _zoya = _interopRequireDefault(require("zoya"));
 
 var _constants = require("../constants");
 
@@ -41,7 +41,7 @@ const handler = async ({
     ref
   });
 
-  _consola.default.info(`deployment ${deploymentId} was created`);
+  _zoya.default.info(`deployment ${deploymentId} was created`);
 
   await (0, _octokit.createDeploymentStatus)({
     owner,
@@ -51,9 +51,9 @@ const handler = async ({
     url: 'https://google.com'
   });
 
-  _consola.default.info('deployment status was created');
+  _zoya.default.info('deployment status was created');
 
-  _consola.default.success('deployed');
+  _zoya.default.info('deployed');
 };
 
 const Deploy = {
