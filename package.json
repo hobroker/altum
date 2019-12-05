@@ -10,7 +10,7 @@
     "start": "node index.js",
     "dev": "node -r @babel/register src/index.js",
     "dev:watch": "nodemon --inspect=8100 src/index.js",
-    "build": "ls -la && babel src -d build",
+    "build": "ls -la node_modules && babel src -d build",
     "lint": "eslint src --ext .js --max-warnings 0",
     "postinstall": "npm run build"
   },
