@@ -1,9 +1,9 @@
-import consola from 'consola';
+import zoya from 'zoya';
 
 const handler = async ({ emoji }) => {
-  consola.success('pong');
+  zoya.info('pong');
   if (emoji) {
-    consola.log('🍿');
+    zoya.log('🍿');
   }
 };
 

@@ -23,7 +23,8 @@
     "find-up": "^4.1.0",
     "get-port": "^5.0.0",
     "yargs": "^15.0.2",
-    "yargs-parser": "^16.1.0"
+    "yargs-parser": "^16.1.0",
+    "zoya": "^1.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.4",

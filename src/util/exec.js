@@ -1,4 +1,4 @@
-import consola from 'consola';
+import zoya from 'zoya';
 import execa from 'execa';
 import { isSilent } from './silent';
 
@@ -18,13 +18,13 @@ const exec = async (
   const argsString = args.join` `;
 
   if (!isSilent() && logCommand) {
-    consola.info('$', command, argsString);
+    zoya.info('$', command, argsString);
   }
 
   const result = await execa(command, args);
 
   if (!isSilent() && logOutput) {
-    consola.info('>', result.stdout || result.stderr);
+    zoya.info('>', result.stdout || result.stderr);
   }
 
   return result.stdout;

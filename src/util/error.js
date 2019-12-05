@@ -1,9 +1,9 @@
-import consola from 'consola';
+import zoya from 'zoya';
 
 const handleError = (error, exitCode = 1) => {
   const errors = [].concat(error);
 
-  consola.fatal(...errors);
+  zoya.fatal(...errors);
   if (exitCode !== false) {
     process.exit(exitCode);
   }

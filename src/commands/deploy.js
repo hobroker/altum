@@ -1,4 +1,4 @@
-import consola from 'consola';
+import zoya from 'zoya';
 import { DEPLOYMENT_STATUSES } from '../constants';
 import { createDeployment, createDeploymentStatus } from '../util/octokit';
 
@@ -17,7 +17,7 @@ const handler = async ({ owner, repo, ref }) => {
     ref,
   });
 
-  consola.info(`deployment ${deploymentId} was created`);
+  zoya.info(`deployment ${deploymentId} was created`);
 
   await createDeploymentStatus({
     owner,
@@ -27,9 +27,9 @@ const handler = async ({ owner, repo, ref }) => {
     url: 'https://google.com',
   });
 
-  consola.info('deployment status was created');
+  zoya.info('deployment status was created');
 
-  consola.success('deployed');
+  zoya.info('deployed');
 };
 
 const Deploy = {

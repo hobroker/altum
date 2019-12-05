@@ -1,4 +1,4 @@
-import consola from 'consola';
+import zoya from 'zoya';
 import { APP_NAME } from '../constants';
 import exec from '../util/exec';
 import remove from './remove';
@@ -18,7 +18,7 @@ const stopAndTryToRemoveContainer = async id => {
   try {
     await remove.handler({ id });
   } catch (error) {
-    consola.warn(error.stderr);
+    zoya.warn(error.stderr);
   }
 };
 
@@ -78,7 +78,7 @@ const handler = async options => {
   } catch (error) {
     const { stderr } = error;
     if (stderr) {
-      consola.warn(stderr);
+      zoya.warn(stderr);
       await tryToHandleStartError(stderr, meta);
       await _start();
     } else {
@@ -86,7 +86,7 @@ const handler = async options => {
     }
   }
 
-  consola.success('started');
+  zoya.info('started');
 };
 
 const Start = {

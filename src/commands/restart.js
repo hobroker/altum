@@ -1,4 +1,4 @@
-import consola from 'consola';
+import zoya from 'zoya';
 import exec from '../util/exec';
 
 const builder = parent =>
@@ -12,11 +12,11 @@ const builder = parent =>
  * @param {String} id
  */
 const handler = async ({ id }) => {
-  consola.info(`restarting container ${id}`);
+  zoya.info(`restarting container ${id}`);
 
   await exec('docker', ['restart', id]);
 
-  consola.success(`container ${id} was restarted`);
+  zoya.info(`container ${id} was restarted`);
 };
 
 const Restart = {

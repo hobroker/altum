@@ -1,4 +1,4 @@
-import consola from 'consola';
+import zoya from 'zoya';
 import exec from '../util/exec';
 import { parseJsonOutput } from '../util/json';
 import { APP_NAME } from '../constants';
@@ -37,13 +37,13 @@ const builder = parent =>
  */
 const handler = async ({ filter }) => {
   if (filter) {
-    consola.info('filter=%s', filter);
+    zoya.info('filter=%s', filter);
   }
 
   const containers = await findContainers({ filter });
 
-  consola.success(`found ${containers.length} container(s)`);
-  consola.success(containers);
+  zoya.info(`found ${containers.length} container(s)`);
+  zoya.info(containers);
 };
 
 const List = {

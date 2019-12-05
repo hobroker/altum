@@ -1,4 +1,4 @@
-import consola from 'consola';
+import zoya from 'zoya';
 import exec from '../util/exec';
 
 const builder = parent =>
@@ -12,11 +12,11 @@ const builder = parent =>
  * @param {String} id
  */
 const handler = async ({ id }) => {
-  consola.info(`stopping container ${id}`);
+  zoya.info(`stopping container ${id}`);
 
   await exec('docker', ['stop', id]);
 
-  consola.success(`container ${id} was stopped`);
+  zoya.info(`container ${id} was stopped`);
 };
 
 const Stop = {
