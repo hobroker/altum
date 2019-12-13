@@ -1,13 +1,19 @@
+import { readFileSync, writeFileSync, existsSync } from 'fs';
+import { resolve } from 'path';
 import findUp from 'find-up';
-import { readFileSync } from 'fs';
+import zoya from 'zoya';
 import { APP_NAME } from '../constants';
 
-const readConfig = (defaultConfig = {}) => {
-  const filenamePrefix = `${APP_NAME}rc`;
-  const configPath = findUp.sync([
-    `.${filenamePrefix}`,
-    `.${filenamePrefix}.json`,
-  ]);
+export const CONFIG_FILENAME_PREFIX = `.${APP_NAME}rc`;
+
+export const resolveConfigFileInCWD = () =>
+  resolve(process.cwd(), CONFIG_FILENAME_PREFIX);
+
+export const getCurrentConfigPath = () =>
+  findUp.sync([`${CONFIG_FILENAME_PREFIX}`, `${CONFIG_FILENAME_PREFIX}.json`]);
+
+export const readConfig = (defaultConfig = {}) => {
+  const configPath = getCurrentConfigPath();
 
   if (!configPath) {
     return defaultConfig;
@@ -21,4 +27,20 @@ const readConfig = (defaultConfig = {}) => {
   };
 };
 
-export default readConfig;
+export const writeConfig = (
+  data = {},
+  { filepath = getCurrentConfigPath(), force = false } = {},
+) => {
+  if (!force && existsSync(filepath)) {
+    zoya.warn(`${filepath} exists, if you wish to overwrite it, use --force`);
+  }
+
+  const string = JSON.stringify(data, null, 2);
+  writeFileSync(filepath, string);
+
+  return {
+    filepath,
+    data,
+    string,
+  };
+};

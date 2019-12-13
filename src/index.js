@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 
 import yargs from 'yargs';
+import zoya from 'zoya';
 import { handleYargsError } from './util/error';
 import { APP_NAME, REPOSITORY } from './constants';
 import completion from './completion';
 import { requireDocker, silentOption } from './middlewares';
-import readConfig from './util/config';
+import * as globalOptions from './global-options';
+import config from './config';
 
 import Deploy from './commands/deploy';
 import Util from './commands/util';
@@ -15,23 +17,18 @@ import Remove from './commands/remove';
 import Restart from './commands/restart';
 import Start from './commands/start';
 import Stop from './commands/stop';
+import Init from './commands/init';
 
 yargs
   .scriptName(APP_NAME)
-  .config(
-    readConfig({
-      emoji: false,
-    }),
-  )
-  .option('silent', {
-    boolean: true,
-    default: false,
-    desc: 'Do not print shell executions',
-    group: 'Options:',
-  })
+  .config(config)
+
   .middleware(silentOption)
   .middleware(requireDocker)
 
+  .options(globalOptions)
+
+  .command(Init)
   .command(List)
   .command(Start)
   .command(Stop)

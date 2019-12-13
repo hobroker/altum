@@ -5,6 +5,7 @@ const builder = parent => parent.command(FreePort);
 const Util = {
   command: 'util',
   desc: 'A set of utils/helpers',
+  handler: undefined,
   builder,
 };
 

@@ -3,7 +3,7 @@ import zoya from 'zoya';
 const handler = async ({ emoji }) => {
   zoya.info('pong');
   if (emoji) {
-    zoya.log('🍿');
+    zoya.info('🍿');
   }
 };
 
