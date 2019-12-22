@@ -1,7 +1,13 @@
 import getPort from 'get-port';
 
-const handler = async () => {
-  const range = [3000, 5000];
+const builder = parent =>
+  parent.options({
+    from: { number: true, default: 3000 },
+    to: { number: true, default: 5000 },
+  });
+
+const handler = async ({ from, to }) => {
+  const range = [from, to];
   const port = await getPort({
     port: getPort.makeRange(...range),
   });
@@ -14,6 +20,7 @@ const FreePort = {
   command: 'free-port',
   desc: 'Finds a free TCP port',
   handler,
+  builder,
 };
 
 export default FreePort;

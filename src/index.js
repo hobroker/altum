@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import yargs from 'yargs';
-import zoya from 'zoya';
 import { handleYargsError } from './util/error';
 import { APP_NAME, REPOSITORY } from './constants';
 import completion from './completion';

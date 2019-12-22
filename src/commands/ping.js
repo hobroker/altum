@@ -1,10 +1,11 @@
+import { resolve } from 'path';
 import zoya from 'zoya';
+import exec from '../util/exec';
 
-const handler = async ({ emoji }) => {
+const handler = async () => {
   zoya.info('pong');
-  if (emoji) {
-    zoya.info('🍿');
-  }
+  const envRoot = resolve(__dirname, '../env');
+  await exec('docker', ['build', '-f', `${envRoot}/Dockerfile`, envRoot], true);
 };
 
 const Ping = {

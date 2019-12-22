@@ -18,7 +18,7 @@ const exec = async (
   const argsString = args.join` `;
 
   if (!isSilent() && logCommand) {
-    zoya.info('$', command, argsString);
+    zoya.info('$', `${command} ${argsString}`);
   }
 
   const result = await execa(command, args);
